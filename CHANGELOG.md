@@ -2,11 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2025-02-09
+
+### 🚀 Features
+
+- Add weight conversion
+- Add temperature conversion
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove unnecessary attribute
+
 ## [0.2.0] - 2025-02-09
 
 ### 🚜 Refactor
 
 - Use clap for args parsing
+
+### ⚙️ Miscellaneous Tasks
+
+- Release v0.2.0
 
 ## [0.1.0] - 2025-02-09
 

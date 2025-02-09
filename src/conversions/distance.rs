@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub enum DistanceUnit {
     Nanometer,
     Micrometer,

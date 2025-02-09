@@ -1,6 +1,7 @@
 use clap::{Parser, Subcommand, Args};
 
 use conversions::distance;
+use conversions::weight;
 use conversions::temperature;
 
 pub mod conversions;
@@ -40,7 +41,10 @@ impl Cmd {
                 let result = distance::convert(fields.value, &fields.from_unit, &fields.to_unit)?;
                 Ok((fields.value, fields.from_unit.as_str(), result, fields.to_unit.as_str()))
             },
-            Measurement::Weight(_) => Err("not yet implemented"),
+            Measurement::Weight(fields) => {
+                let result = weight::convert(fields.value, &fields.from_unit, &fields.to_unit)?;
+                Ok((fields.value, fields.from_unit.as_str(), result, fields.to_unit.as_str()))
+            },
             Measurement::Temp(fields) => {
                 let result = temperature::convert(fields.value, &fields.from_unit, &fields.to_unit)?;
                 Ok((fields.value, fields.from_unit.as_str(), result, fields.to_unit.as_str()))

@@ -2,6 +2,7 @@ use clap::{Parser, Subcommand, Args};
 
 use conversions::distance;
 use conversions::weight;
+use conversions::temperature;
 
 pub mod conversions;
 
@@ -18,7 +19,9 @@ pub enum Measurement {
     /// Convert between distance units
     Dist(Fields),
     /// Convert between weight units
-    Weight(Fields)
+    Weight(Fields),
+    /// Convert between temperature units
+    Temp(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -40,6 +43,10 @@ impl Cmd {
             },
             Measurement::Weight(fields) => {
                 let result = weight::convert(fields.value, &fields.from_unit, &fields.to_unit)?;
+                Ok((fields.value, fields.from_unit.as_str(), result, fields.to_unit.as_str()))
+            },
+            Measurement::Temp(fields) => {
+                let result = temperature::convert(fields.value, &fields.from_unit, &fields.to_unit)?;
                 Ok((fields.value, fields.from_unit.as_str(), result, fields.to_unit.as_str()))
             },
         }

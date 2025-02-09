@@ -1,71 +1,43 @@
-use std::{env::Args, str::FromStr};
+use clap::{Parser, Subcommand, Args};
 
 use conversions::distance;
 
 pub mod conversions;
 
-#[derive(Debug)]
+#[derive(Debug, Parser)]
+#[command(version, about, long_about=None)]
 pub struct Cmd {
+    /// Measurement category. Supported types: 'dist' (distance)
+    #[clap(subcommand)]
     pub measurement: Measurement,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum Measurement {
+    /// Convert between distance units
+    Dist(Fields),
+    /// Convert between weight units
+    Weight(Fields)
+}
+
+#[derive(Debug, Args)]
+pub struct Fields {
+    /// The numerical value to convert
     pub value: f64,
+    /// The unit to convert from
     pub from_unit: String,
+    /// The unit to convert to
     pub to_unit: String,
 }
 
-#[derive(Debug)]
-pub enum Measurement {
-    Dist,
-    Weight
-}
-
-impl FromStr for Measurement {
-    type Err = &'static str;
-
-    fn from_str(measurement: &str) -> Result<Self, Self::Err> {
-        let text = measurement.to_lowercase();
-        match text.as_str() {
-            "dist" => Ok(Measurement::Dist),
-            "weight" => Ok(Measurement::Weight),
-            _ => Err("Invalid measurement type")
-        }
-    }
-}
-
 impl Cmd {
-    pub fn new(mut args: Args) -> Result<Cmd, &'static str> {
-        if args.len() != 5 {
-            return Err("Usage: cnv <category> <value> <from_unit> <to_unit>");
-        }
-        args.next();
-        let measurement = match args.next() {
-            Some(v) => v.parse()?,
-            None => return Err("Unexpected error occured -_-"),
-        };
-        let value = match args.next() {
-            Some(v) => v.parse().map_err(|_| "Invalid number")?,
-            None => return Err("Unexpected error occured -_-"),
-        };
-        let from_unit = match args.next() {
-            Some(v) => v,
-            None => return Err("Unexpected error occured -_-"),
-        };
-        let to_unit = match args.next() {
-            Some(v) => v,
-            None => return Err("Unexpected error occured -_-"),
-        };
-        
-        Ok(Cmd {
-            measurement,
-            value,
-            from_unit,
-            to_unit,
-        })
-    }
-
-    pub fn execute(&self) -> Result<f64, &'static str> {
-        match self.measurement {
-            Measurement::Dist => distance::convert(self.value, &self.from_unit, &self.to_unit),
-            Measurement::Weight => Err("not yet implemented")
+    pub fn execute(&self) -> Result<(f64, &str, f64, &str), &'static str> {
+        match &self.measurement {
+            Measurement::Dist(fields) => {
+                let result = distance::convert(fields.value, &fields.from_unit, &fields.to_unit)?;
+                Ok((fields.value, fields.from_unit.as_str(), result, fields.to_unit.as_str()))
+            },
+            Measurement::Weight(_) => Err("not yet implemented")
         }
     }
 }

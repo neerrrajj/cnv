@@ -1,16 +1,12 @@
-use std::{env, process};
+use clap::Parser;
 
 use cnv::Cmd;
 
 fn main() {
-    let args = env::args();
-    let cmd = Cmd::new(args).unwrap_or_else(|e| {
-        println!("Problem parsing arguments :/ \n{}", e);
-        process::exit(1)
-    });
+    let cmd = Cmd::parse();
     
     match cmd.execute() {
-        Ok(v) => println!("{} {} = {} {}", cmd.value, cmd.from_unit, v, cmd.to_unit),
+        Ok((value, from_unit, result, to_unit)) => println!("{} {} = {} {}", value, from_unit, result, to_unit),
         Err(e) => println!("Unexpected error - {}" ,e)
     }
 }

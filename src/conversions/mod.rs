@@ -24,15 +24,16 @@ macro_rules! impl_conversion_traits {
 
         impl Help for $type {
             fn generate_help_text() -> String {
-                let mut help = String::from("------------------------------\n\
+                let mut help = String::from("-----------------------------------\n\
                                              List of supported units\n\
-                                             ------------------------------\n");
+                                             -----------------------------------\n");
                 for def in $unit_defs {
                     help.push_str(&format!("* {} : {}\n", 
                         def.name, 
                         def.aliases.join(", ")
                     ));
                 }
+                help.push_str("--------------------------------------");
                 help
             }
         }

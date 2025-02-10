@@ -7,10 +7,33 @@ use conversions::temperature;
 
 pub mod conversions;
 
+const HELP_TEMPLATE: &str = "
+----------------------------------------------------------
+{about}
+----------------------------------------------------------
+({bin} {version})
+
+{usage-heading}{tab}{usage}
+
+{all-args}
+----------------------------------------------
+";
+
+const SUBCOMMAND_TEMPLATE: &str = "
+--------------------------------------
+{about}
+--------------------------------------
+
+{usage-heading}{tab}{usage}
+
+{all-args}
+--------------------------------------------------
+";
+
 #[derive(Debug, Parser)]
-#[command(version, about, long_about=None)]
+#[command(version, about, long_about=None, help_template=HELP_TEMPLATE)]
 pub struct Cmd {
-    /// Measurement category. Supported types: 'dist' (distance)
+    /// Measurement category
     #[clap(subcommand)]
     pub measurement: Measurement,
 }
@@ -18,10 +41,13 @@ pub struct Cmd {
 #[derive(Debug, Subcommand)]
 pub enum Measurement {
     /// Convert between distance units
+    #[command(help_template = SUBCOMMAND_TEMPLATE)]
     Dist(Fields),
     /// Convert between weight units
+    #[command(help_template = SUBCOMMAND_TEMPLATE)]
     Weight(Fields),
     /// Convert between temperature units
+    #[command(help_template = SUBCOMMAND_TEMPLATE)]
     Temp(Fields)
 }
 

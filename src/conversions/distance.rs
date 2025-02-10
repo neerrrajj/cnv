@@ -1,6 +1,8 @@
 use std::str::FromStr;
 
-#[derive(Debug)]
+use super::*;
+
+#[derive(Debug, Clone, Copy)]
 pub enum DistanceUnit {
     Nanometer,
     Micrometer,
@@ -35,48 +37,174 @@ pub enum DistanceUnit {
     Angstorm,
 }
 
-impl FromStr for DistanceUnit {
-    type Err = &'static str;
+pub struct UnitDef {
+    variant: DistanceUnit,
+    name: &'static str,
+    aliases: &'static[&'static str]
+}
 
-    fn from_str(unit: &str) -> Result<Self, Self::Err> {
-        use DistanceUnit::*;
-        let unit = unit.to_lowercase();
+const UNIT_DEFS: &[UnitDef] = &[
+    UnitDef {
+        variant: DistanceUnit::Nanometer,
+        name: "Nanometer",
+        aliases: &["nm", "nanometer", "nanometers", "nanometre", "nanometres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Micrometer,
+        name: "Micrometer",
+        aliases: &["um", "micrometer", "micrometers", "micrometre", "micrometres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Millimeter,
+        name: "Millimeter",
+        aliases: &["mm", "millimeter", "millimeters", "millimetre", "millimetres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Centimeter,
+        name: "Centimeter",
+        aliases: &["cm", "centimeter", "centimeters", "centimetre", "centimetres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Decimeter,
+        name: "Decimeter",
+        aliases: &["dm", "decimeter", "decimeters", "decimetre", "decimetres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Meter,
+        name: "Meter",
+        aliases: &["m", "meter", "meters", "metre", "metres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Dekameter,
+        name: "Dekameter",
+        aliases: &["dam", "dekameter", "dekameters", "decameter", "decameters"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Hectometer,
+        name: "Hectometer",
+        aliases: &["hm", "hectometer", "hectometers", "hectometre", "hectometres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Kilometer,
+        name: "Kilometer",
+        aliases: &["km", "kms", "kilometer", "kilometers", "kilometre", "kilometres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Megameter,
+        name: "Megameter",
+        aliases: &["Mm", "megameter", "megameters", "megametre", "megametres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Gigameter,
+        name: "Gigameter",
+        aliases: &["Gm", "gigameter", "gigameters", "gigametre", "gigametres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Terameter,
+        name: "Terameter",
+        aliases: &["Tm", "terameter", "terameters", "terametre", "terametres"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Thou,
+        name: "Thou",
+        aliases: &["thou"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Inch,
+        name: "Inch",
+        aliases: &["in", "inch", "inches"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Foot,
+        name: "Foot",
+        aliases: &["ft", "foot", "feet"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Yard,
+        name: "Yard",
+        aliases: &["yd", "yard", "yards"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Mile,
+        name: "Mile",
+        aliases: &["mi", "mile", "miles"],
+    },
+    UnitDef {
+        variant: DistanceUnit::NauticalMile,
+        name: "Nautical Mile",
+        aliases: &["nmi", "nautical mile", "nautical miles"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Fathom,
+        name: "Fathom",
+        aliases: &["fathom", "fathoms"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Rod,
+        name: "Rod",
+        aliases: &["rod", "rods"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Chain,
+        name: "Chain",
+        aliases: &["chain", "chains"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Furlong,
+        name: "Furlong",
+        aliases: &["furlong", "furlongs"],
+    },
+    UnitDef {
+        variant: DistanceUnit::AstronomicalUnit,
+        name: "Astronomical Unit",
+        aliases: &["au", "astronomical unit", "astronomical units"],
+    },
+    UnitDef {
+        variant: DistanceUnit::LightYear,
+        name: "Light Year",
+        aliases: &["ly", "light year", "light years"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Parsec,
+        name: "Parsec",
+        aliases: &["pc", "parsec", "parsecs"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Link,
+        name: "Link",
+        aliases: &["link", "links"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Cubit,
+        name: "Cubit",
+        aliases: &["cubit", "cubits"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Hand,
+        name: "Hand",
+        aliases: &["hand", "hands"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Ell,
+        name: "Ell",
+        aliases: &["ell", "ells"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Fermi,
+        name: "Fermi",
+        aliases: &["fm", "fermi"],
+    },
+    UnitDef {
+        variant: DistanceUnit::Angstorm,
+        name: "Angstorm",
+        aliases: &["A", "angstorm", "angstorms"],
+    },
+];
 
-        match unit.as_str() {
-            "nm" | "nanometer" | "nanometers" | "nanometre" | "nanometres" => Ok(Nanometer),
-            "um" | "micrometer" | "micrometers" | "micrometre" | "micrometres" => Ok(Micrometer),
-            "mm" | "millimeter" | "millimeters" | "millimetre" | "millimetres" => Ok(Millimeter),
-            "cm" | "centimeter" | "centimeters" | "centimetre" | "centimetres" => Ok(Centimeter),
-            "dm" | "decimeter" | "decimeters" | "decimetre" | "decimetres" => Ok(Decimeter),
-            "m" | "meter" | "meters" | "metre" | "metres" => Ok(Meter),
-            "dam" | "dekameter" | "dekameters" | "decameter" | "decameters" => Ok(Dekameter),
-            "hm" | "hectometer" | "hectometers" | "hectometre" | "hectometres" => Ok(Hectometer),
-            "km" | "kms" | "kilometer" | "kilometers" | "kilometre" | "kilometres" => Ok(Kilometer),
-            "Mm" | "megameter" | "megameters" | "megametre" | "megametres" => Ok(Megameter),
-            "Gm" | "gigameter" | "gigameters" | "gigametre" | "gigametres" => Ok(Gigameter),
-            "Tm" | "terameter" | "terameters" | "terametre" | "terametres" => Ok(Terameter),
-            "thou" => Ok(Thou),
-            "in" | "inch" | "inches" => Ok(Inch),
-            "ft" | "foot" | "feet" => Ok(Foot),
-            "yd" | "yard" | "yards" => Ok(Yard),
-            "mi" | "mile" | "miles" => Ok(Mile),
-            "nmi" | "nautical mile" | "nautical miles" => Ok(NauticalMile),
-            "fathom" | "fathoms" => Ok(Fathom),
-            "rod" | "rods" => Ok(Rod),
-            "chain" | "chains" => Ok(Chain),
-            "furlong" | "furlongs" => Ok(Furlong),
-            "au" | "astronomical unit" | "astronomical units" => Ok(AstronomicalUnit),
-            "ly" | "light year" | "light years" => Ok(LightYear),
-            "pc" | "parsec" | "parsecs" => Ok(Parsec),
-            "link" | "links" => Ok(Link),
-            "cubit" | "cubits" => Ok(Cubit),
-            "hand" | "hands" => Ok(Hand),
-            "ell" | "ells" => Ok(Ell),
-            "fm" | "fermi" => Ok(Fermi),
-            "A" | "angstrom" | "angstroms" => Ok(Angstorm),
-            _ => Err("Invalid unit"),
-        }
-    }
+impl_conversion_traits!(DistanceUnit, UNIT_DEFS);
+
+pub fn help_text() -> String {
+    DistanceUnit::generate_help_text()
 }
 
 impl DistanceUnit {

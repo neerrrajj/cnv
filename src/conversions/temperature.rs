@@ -1,6 +1,8 @@
 use std::str::FromStr;
 
-#[derive(Debug)]
+use super::*;
+
+#[derive(Debug, Clone, Copy)]
 pub enum TemperatureUnit {
     Celsius,
     Fahrenheit,
@@ -12,25 +14,59 @@ pub enum TemperatureUnit {
     Romer,
 }
 
-impl FromStr for TemperatureUnit {
-    type Err = &'static str;
+pub struct UnitDef {
+    variant: TemperatureUnit,
+    name: &'static str,
+    aliases: &'static[&'static str]
+}
 
-    fn from_str(unit: &str) -> Result<Self, Self::Err> {
-        use TemperatureUnit::*;
-        let unit = unit.to_lowercase();
+const UNIT_DEFS: &[UnitDef] = &[
+    UnitDef {
+        variant: TemperatureUnit::Celsius,
+        name: "Celsius",
+        aliases: &["c", "celsius", "centigrade"],
+    },
+    UnitDef {
+        variant: TemperatureUnit::Fahrenheit,
+        name: "Fahrenheit",
+        aliases: &["f", "fahrenheit"],
+    },
+    UnitDef {
+        variant: TemperatureUnit::Kelvin,
+        name: "Kelvin",
+        aliases: &["k", "kelvin"],
+    },
+    UnitDef {
+        variant: TemperatureUnit::Rankine,
+        name: "Rankine",
+        aliases: &["r", "rankine"],
+    },
+    UnitDef {
+        variant: TemperatureUnit::Delisle,
+        name: "Delisle",
+        aliases: &["d", "delisle"],
+    },
+    UnitDef {
+        variant: TemperatureUnit::Newton,
+        name: "Newton",
+        aliases: &["n", "newton"],
+    },
+    UnitDef {
+        variant: TemperatureUnit::Reaumur,
+        name: "Réaumur",
+        aliases: &["re", "réaumur", "reaumur"],
+    },
+    UnitDef {
+        variant: TemperatureUnit::Romer,
+        name: "Rømer",
+        aliases: &["ro", "rømer", "romer"],
+    },
+];
 
-        match unit.as_str() {
-            "c" | "celsius" | "centigrade" => Ok(Celsius),
-            "f" | "fahrenheit" => Ok(Fahrenheit),
-            "k" | "kelvin" => Ok(Kelvin),
-            "r" | "rankine" => Ok(Rankine),
-            "d" | "delisle" => Ok(Delisle),
-            "n" | "newton" => Ok(Newton),
-            "re" | "réaumur" | "reaumur" => Ok(Reaumur),
-            "ro" | "rømer" | "romer" => Ok(Romer),
-            _ => Err("Invalid unit"),
-        }
-    }
+impl_conversion_traits!(TemperatureUnit, UNIT_DEFS);
+
+pub fn help_text() -> String {
+    TemperatureUnit::generate_help_text()
 }
 
 impl TemperatureUnit {

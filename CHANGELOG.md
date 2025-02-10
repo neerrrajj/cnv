@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2025-02-10
+
+### 🚀 Features
+
+- Add --list flag support for subcommands
+
+### 🚜 Refactor
+
+- Change cli output look
+
 ## [0.3.0] - 2025-02-09
 
 ### 🚀 Features
@@ -12,6 +22,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Remove unnecessary attribute
+- Release v0.3.0
 
 ## [0.2.0] - 2025-02-09
 

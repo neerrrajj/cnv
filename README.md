@@ -41,8 +41,14 @@ cnv dist 10 miles km
 ### Supported Categories:
 
 - `dist` (Distance) - Converts between different distance units.
+- `weight` (Weight) - Converts between different weight units.
+- `temp` (Temperature) - Converts between different temperature units.
 
-_More categories (such as weight, temperature) will be implemented in future versions._
+_More categories will be supported in upcoming releases._
+
+### Units:
+
+- `--list`, `-L` - Lists down all the supported units for each category.
 
 ## Contributing
 

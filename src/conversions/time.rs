@@ -42,7 +42,7 @@ const UNIT_DEFS: &[UnitDef] = &[
     UnitDef { variant: TimeUnit::Femtosecond, name: "Femtosecond", aliases: &["fs", "femto", "femtosec", "femtosecond", "femtoseconds"] },
     UnitDef { variant: TimeUnit::Picosecond, name: "Picosecond", aliases: &["ps", "pico", "picosec", "picosecond", "picoseconds"] },
     UnitDef { variant: TimeUnit::Nanosecond, name: "Nanosecond", aliases: &["ns", "nano", "nanosec", "nanosecond", "nanoseconds"] },
-    UnitDef { variant: TimeUnit::Microsecond, name: "Microsecond", aliases: &["us", "micro", "microsec", "usec", "microsecond", "microseconds"] },
+    UnitDef { variant: TimeUnit::Microsecond, name: "Microsecond", aliases: &["µs", "us", "micro", "microsec", "usec", "microsecond", "microseconds"] },
     UnitDef { variant: TimeUnit::Millisecond, name: "Millisecond", aliases: &["ms", "milli", "millisec", "millisecond", "milliseconds"] },
     UnitDef { variant: TimeUnit::Second, name: "Second", aliases: &["s", "sec", "secs", "second", "seconds"] },
     UnitDef { variant: TimeUnit::Minute, name: "Minute", aliases: &["min", "mins", "minute", "minutes"] },

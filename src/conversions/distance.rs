@@ -52,7 +52,7 @@ const UNIT_DEFS: &[UnitDef] = &[
     UnitDef {
         variant: DistanceUnit::Micrometer,
         name: "Micrometer",
-        aliases: &["um", "micrometer", "micrometers", "micrometre", "micrometres"],
+        aliases: &["µm", "um", "micrometer", "micrometers", "micrometre", "micrometres"],
     },
     UnitDef {
         variant: DistanceUnit::Millimeter,

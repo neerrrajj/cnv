@@ -45,7 +45,7 @@ const UNIT_DEFS: &[UnitDef] = &[
     UnitDef {
         variant: WeightUnit::Microgram,
         name: "Microgram",
-        aliases: &["mcg", "microgram", "micrograms"],
+        aliases: &["µg", "ug", "mcg", "microgram", "micrograms"],
     },
     UnitDef {
         variant: WeightUnit::Milligram,

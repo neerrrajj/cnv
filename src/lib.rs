@@ -8,6 +8,7 @@ use conversions::data_storage;
 use conversions::data_transfer;
 use conversions::time;
 use conversions::volume;
+use conversions::area;
 
 pub mod conversions;
 
@@ -62,7 +63,10 @@ pub enum Measurement {
     Time(Fields),
     /// Convert between volume units
     #[command(name="vol", help_template = SUBCOMMAND_TEMPLATE)]
-    Volume(Fields)
+    Volume(Fields),
+    /// Convert between area units
+    #[command(help_template = SUBCOMMAND_TEMPLATE)]
+    Area(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -91,6 +95,7 @@ impl Cmd {
             Measurement::DataTransfer(fields) => handle_conversion(fields, data_transfer::convert, data_transfer::help_text),
             Measurement::Time(fields) => handle_conversion(fields, time::convert, time::help_text),
             Measurement::Volume(fields) => handle_conversion(fields, volume::convert, volume::help_text),
+            Measurement::Area(fields) => handle_conversion(fields, area::convert, area::help_text),
         }
     }
 }

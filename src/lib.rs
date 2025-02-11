@@ -16,7 +16,6 @@ const HELP_TEMPLATE: &str = "
 {usage-heading}{tab}{usage}
 
 {all-args}
-----------------------------------------------
 ";
 
 const SUBCOMMAND_TEMPLATE: &str = "
@@ -27,7 +26,6 @@ const SUBCOMMAND_TEMPLATE: &str = "
 {usage-heading}{tab}{usage}
 
 {all-args}
---------------------------------------------------
 ";
 
 #[derive(Debug, Parser)]

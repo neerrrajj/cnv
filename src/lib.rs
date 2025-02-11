@@ -4,6 +4,7 @@ use clap::{Parser, Subcommand, Args};
 use conversions::distance;
 use conversions::weight;
 use conversions::temperature;
+use conversions::data_storage;
 
 pub mod conversions;
 
@@ -46,7 +47,10 @@ pub enum Measurement {
     Weight(Fields),
     /// Convert between temperature units
     #[command(help_template = SUBCOMMAND_TEMPLATE)]
-    Temp(Fields)
+    Temp(Fields),
+    /// Convert between data storage units
+    #[command(name="ds", help_template = SUBCOMMAND_TEMPLATE)]
+    DataStorage(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -71,6 +75,7 @@ impl Cmd {
             Measurement::Dist(fields) => handle_conversion(fields, distance::convert, distance::help_text),
             Measurement::Weight(fields) => handle_conversion(fields, weight::convert, weight::help_text),
             Measurement::Temp(fields) => handle_conversion(fields, temperature::convert, temperature::help_text),
+            Measurement::DataStorage(fields) => handle_conversion(fields, data_storage::convert, data_storage::help_text),
         }
     }
 }

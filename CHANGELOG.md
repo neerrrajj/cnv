@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2025-02-11
+
+### 🚀 Features
+
+- Add time conversions
+- Add support for µ symbol in units
+- Add volume conversions
+- Add area conversions
+
 ## [0.5.0] - 2025-02-11
 
 ### 🚀 Features
@@ -12,6 +21,10 @@ All notable changes to this project will be documented in this file.
 ### 🐛 Bug Fixes
 
 - Case sensitive arg matching
+
+### ⚙️ Miscellaneous Tasks
+
+- Release v0.5.0
 
 ## [0.4.0] - 2025-02-10
 

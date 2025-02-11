@@ -45,12 +45,16 @@ cnv dist 10 miles km
 - `temp` (Temperature) - Converts between different temperature units.
 - `ds` (Data Storage) - Converts between different data storage units.
 - `dt` (Data Transfer) - Converts between different data transfer units.
+- `time` (Time) - Converts between different time units.
+- `volume` (Volume) - Converts between different volume units.
+- `area` (Area) - Converts between different area units.
 
 _More categories will be supported in upcoming releases._
 
 ### Units:
 
 - `--list`, `-L` - Lists down all the supported units for each category.
+- Usage: `cnv <COMMAND> --list`
 
 ## Contributing
 

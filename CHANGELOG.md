@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2025-02-11
+
+### 🚀 Features
+
+- Add data storage conversions
+- Add data transfer conversions
+
+### 🐛 Bug Fixes
+
+- Case sensitive arg matching
+
 ## [0.4.0] - 2025-02-10
 
 ### 🚀 Features
@@ -11,6 +22,10 @@ All notable changes to this project will be documented in this file.
 ### 🚜 Refactor
 
 - Change cli output look
+
+### ⚙️ Miscellaneous Tasks
+
+- Release v0.4.0
 
 ## [0.3.0] - 2025-02-09
 

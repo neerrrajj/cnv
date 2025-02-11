@@ -43,6 +43,8 @@ cnv dist 10 miles km
 - `dist` (Distance) - Converts between different distance units.
 - `weight` (Weight) - Converts between different weight units.
 - `temp` (Temperature) - Converts between different temperature units.
+- `ds` (Data Storage) - Converts between different data storage units.
+- `dt` (Data Transfer) - Converts between different data transfer units.
 
 _More categories will be supported in upcoming releases._
 

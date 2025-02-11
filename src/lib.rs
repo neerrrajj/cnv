@@ -5,6 +5,7 @@ use conversions::distance;
 use conversions::weight;
 use conversions::temperature;
 use conversions::data_storage;
+use conversions::data_transfer;
 
 pub mod conversions;
 
@@ -50,7 +51,10 @@ pub enum Measurement {
     Temp(Fields),
     /// Convert between data storage units
     #[command(name="ds", help_template = SUBCOMMAND_TEMPLATE)]
-    DataStorage(Fields)
+    DataStorage(Fields),
+    /// Convert between data transfer units
+    #[command(name="dt", help_template = SUBCOMMAND_TEMPLATE)]
+    DataTransfer(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -76,6 +80,7 @@ impl Cmd {
             Measurement::Weight(fields) => handle_conversion(fields, weight::convert, weight::help_text),
             Measurement::Temp(fields) => handle_conversion(fields, temperature::convert, temperature::help_text),
             Measurement::DataStorage(fields) => handle_conversion(fields, data_storage::convert, data_storage::help_text),
+            Measurement::DataTransfer(fields) => handle_conversion(fields, data_transfer::convert, data_transfer::help_text),
         }
     }
 }

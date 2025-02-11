@@ -4,6 +4,7 @@ pub mod temperature;
 pub mod data_storage;
 pub mod data_transfer;
 pub mod time;
+pub mod volume;
 
 pub trait Help {
     fn generate_help_text() -> String;

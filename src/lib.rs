@@ -7,6 +7,7 @@ use conversions::temperature;
 use conversions::data_storage;
 use conversions::data_transfer;
 use conversions::time;
+use conversions::volume;
 
 pub mod conversions;
 
@@ -58,7 +59,10 @@ pub enum Measurement {
     DataTransfer(Fields),
     /// Convert between time units
     #[command(help_template = SUBCOMMAND_TEMPLATE)]
-    Time(Fields)
+    Time(Fields),
+    /// Convert between volume units
+    #[command(name="vol", help_template = SUBCOMMAND_TEMPLATE)]
+    Volume(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -86,6 +90,7 @@ impl Cmd {
             Measurement::DataStorage(fields) => handle_conversion(fields, data_storage::convert, data_storage::help_text),
             Measurement::DataTransfer(fields) => handle_conversion(fields, data_transfer::convert, data_transfer::help_text),
             Measurement::Time(fields) => handle_conversion(fields, time::convert, time::help_text),
+            Measurement::Volume(fields) => handle_conversion(fields, volume::convert, volume::help_text),
         }
     }
 }

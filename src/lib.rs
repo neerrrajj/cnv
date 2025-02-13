@@ -1,14 +1,7 @@
 use std::process;
 use clap::{Parser, Subcommand, Args};
 
-use conversions::distance;
-use conversions::weight;
-use conversions::temperature;
-use conversions::data_storage;
-use conversions::data_transfer;
-use conversions::time;
-use conversions::volume;
-use conversions::area;
+use conversions::*;
 
 pub mod conversions;
 
@@ -66,7 +59,10 @@ pub enum Measurement {
     Volume(Fields),
     /// Convert between area units
     #[command(help_template = SUBCOMMAND_TEMPLATE)]
-    Area(Fields)
+    Area(Fields),
+    /// Convert between frequency units
+    #[command(name="freq", help_template = SUBCOMMAND_TEMPLATE)]
+    Frequency(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -96,6 +92,7 @@ impl Cmd {
             Measurement::Time(fields) => handle_conversion(fields, time::convert, time::help_text),
             Measurement::Volume(fields) => handle_conversion(fields, volume::convert, volume::help_text),
             Measurement::Area(fields) => handle_conversion(fields, area::convert, area::help_text),
+            Measurement::Frequency(fields) => handle_conversion(fields, frequency::convert, frequency::help_text)
         }
     }
 }

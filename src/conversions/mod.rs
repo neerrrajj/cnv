@@ -6,6 +6,7 @@ pub mod data_transfer;
 pub mod time;
 pub mod volume;
 pub mod area;
+pub mod frequency;
 
 pub trait Help {
     fn generate_help_text() -> String;

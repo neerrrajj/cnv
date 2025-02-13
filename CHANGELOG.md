@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2025-02-13
+
+### 🚀 Features
+
+- Add frequency conversions
+- Add force conversions
+- Add energy conversions
+- Add power conversions
+- Add speed conversions
+
 ## [0.6.0] - 2025-02-11
 
 ### 🚀 Features
@@ -10,6 +20,10 @@ All notable changes to this project will be documented in this file.
 - Add support for µ symbol in units
 - Add volume conversions
 - Add area conversions
+
+### ⚙️ Miscellaneous Tasks
+
+- Release v0.6.0
 
 ## [0.5.0] - 2025-02-11
 

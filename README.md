@@ -48,6 +48,11 @@ cnv dist 10 miles km
 - `time` (Time) - Converts between different time units.
 - `volume` (Volume) - Converts between different volume units.
 - `area` (Area) - Converts between different area units.
+- `freq` (Frequency) - Converts between different frequency units.
+- `energy` (Energy) - Converts between different energy units.
+- `force` (Force) - Converts between different force units.
+- `power` (Power) - Converts between different power units.
+- `speed` (Speed) - Converts between different speed units.
 
 _More categories will be supported in upcoming releases._
 

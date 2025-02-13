@@ -62,7 +62,10 @@ pub enum Measurement {
     Area(Fields),
     /// Convert between frequency units
     #[command(name="freq", help_template = SUBCOMMAND_TEMPLATE)]
-    Frequency(Fields)
+    Frequency(Fields),
+    /// Convert between force units
+    #[command(help_template = SUBCOMMAND_TEMPLATE)]
+    Force(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -92,7 +95,8 @@ impl Cmd {
             Measurement::Time(fields) => handle_conversion(fields, time::convert, time::help_text),
             Measurement::Volume(fields) => handle_conversion(fields, volume::convert, volume::help_text),
             Measurement::Area(fields) => handle_conversion(fields, area::convert, area::help_text),
-            Measurement::Frequency(fields) => handle_conversion(fields, frequency::convert, frequency::help_text)
+            Measurement::Frequency(fields) => handle_conversion(fields, frequency::convert, frequency::help_text),
+            Measurement::Force(fields) => handle_conversion(fields, force::convert, force::help_text)
         }
     }
 }

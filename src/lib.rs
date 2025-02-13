@@ -71,7 +71,10 @@ pub enum Measurement {
     Energy(Fields),
     /// Convert between power units
     #[command(help_template = SUBCOMMAND_TEMPLATE)]
-    Power(Fields)
+    Power(Fields),
+    /// Convert between speed units
+    #[command(help_template = SUBCOMMAND_TEMPLATE)]
+    Speed(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -105,6 +108,7 @@ impl Cmd {
             Measurement::Force(fields) => handle_conversion(fields, force::convert, force::help_text),
             Measurement::Energy(fields) => handle_conversion(fields, energy::convert, energy::help_text),
             Measurement::Power(fields) => handle_conversion(fields, power::convert, power::help_text),
+            Measurement::Speed(fields) => handle_conversion(fields, speed::convert, speed::help_text),
         }
     }
 }

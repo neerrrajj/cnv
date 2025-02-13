@@ -75,7 +75,6 @@ const UNIT_DEFS: &[UnitDef] = &[
     UnitDef { variant: EnergyUnit::NewtonMeter, name: "Newton Meter", aliases: &["Nm", "newton meter", "newton meters", "newton-meter", "newton-meters"] },
     UnitDef { variant: EnergyUnit::WattSecond, name: "Watt Second", aliases: &["Ws", "watt second", "watt seconds", "watt-second", "watt-seconds"] },
     UnitDef { variant: EnergyUnit::HorsepowerHour, name: "Horsepower Hour", aliases: &["hp-h", "horsepower hour", "horsepower hours", "horsepower-hour", "horsepower-hours"] },
-    
 ];
 
 impl_conversion_traits!(EnergyUnit, UNIT_DEFS);

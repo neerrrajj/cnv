@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0] - 2025-02-28
+
+### 🚀 Features
+
+- Add binary for fetching currency rates
+- Add currency conversions
+
 ## [0.7.0] - 2025-02-13
 
 ### 🚀 Features
@@ -11,6 +18,10 @@ All notable changes to this project will be documented in this file.
 - Add energy conversions
 - Add power conversions
 - Add speed conversions
+
+### ⚙️ Miscellaneous Tasks
+
+- Release v0.7.0
 
 ## [0.6.0] - 2025-02-11
 

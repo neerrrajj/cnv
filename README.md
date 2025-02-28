@@ -53,8 +53,7 @@ cnv dist 10 miles km
 - `force` (Force) - Converts between different force units.
 - `power` (Power) - Converts between different power units.
 - `speed` (Speed) - Converts between different speed units.
-
-_More categories will be supported in upcoming releases._
+- `currency` (Currency) - Converts between different currencies.
 
 ### Units:
 

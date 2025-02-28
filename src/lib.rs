@@ -74,7 +74,10 @@ pub enum Measurement {
     Power(Fields),
     /// Convert between speed units
     #[command(help_template = SUBCOMMAND_TEMPLATE)]
-    Speed(Fields)
+    Speed(Fields),
+    /// Convert between currencies
+    #[command(help_template = SUBCOMMAND_TEMPLATE)]
+    Currency(Fields)
 }
 
 #[derive(Debug, Args)]
@@ -94,7 +97,7 @@ pub struct Fields {
 }
 
 impl Cmd {
-    pub fn execute(&self) -> Result<(f64, &str, f64, &str), &'static str> {
+    pub fn execute(&self) -> Result<(f64, &str, f64, &str, Option<String>), &'static str> {
         match &self.measurement {
             Measurement::Dist(fields) => handle_conversion(fields, distance::convert, distance::help_text),
             Measurement::Weight(fields) => handle_conversion(fields, weight::convert, weight::help_text),
@@ -109,6 +112,7 @@ impl Cmd {
             Measurement::Energy(fields) => handle_conversion(fields, energy::convert, energy::help_text),
             Measurement::Power(fields) => handle_conversion(fields, power::convert, power::help_text),
             Measurement::Speed(fields) => handle_conversion(fields, speed::convert, speed::help_text),
+            Measurement::Currency(fields) => handle_currency_conversion(fields, currency::convert, currency::help_text),
         }
     }
 }
@@ -117,7 +121,7 @@ fn handle_conversion(
     fields: &Fields, 
     convert: fn(f64, &str, &str) -> Result<f64, &'static str>,
     help_text: fn() -> String
-) -> Result<(f64, &str, f64, &str), &'static str> {
+) -> Result<(f64, &str, f64, &str, Option<String>), &'static str> {
 
     if fields.list {
         println!("{}", help_text());
@@ -129,5 +133,23 @@ fn handle_conversion(
     let to = fields.to_unit.as_deref().ok_or("To unit required")?;
 
     let result = convert(value, from, to)?;
-    Ok((value, from, result, to))
+    Ok((value, from, result, to, None))
+}
+
+fn handle_currency_conversion(
+    fields: &Fields,
+    convert: fn(f64, &str, &str) -> Result<(f64, String), &'static str>,
+    help_text: fn() -> String
+) -> Result<(f64, &str, f64, &str, Option<String>), &'static str> {
+    if fields.list {
+        println!("{}", help_text());
+        process::exit(0);
+    }
+
+    let value = fields.value.ok_or("Value required")?;
+    let from = fields.from_unit.as_deref().ok_or("From unit required")?;
+    let to = fields.to_unit.as_deref().ok_or("To unit required")?;
+
+    let (result, date) = convert(value, from, to)?;
+    Ok((value, from, result, to, Some(date)))
 }

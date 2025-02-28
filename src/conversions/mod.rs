@@ -11,6 +11,7 @@ pub mod force;
 pub mod energy;
 pub mod power;
 pub mod speed;
+pub mod currency;
 
 pub trait Help {
     fn generate_help_text() -> String;
